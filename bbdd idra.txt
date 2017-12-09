@@ -1,0 +1,65 @@
+﻿
+BBDD idraPonferrada
+	
+	DROP DATABASE IF EXISTS `idraPonferrada`;CREATE DATABASE `idraPonferrada` CHARACTER SET `utf8` COLLATE `utf8_general_ci`;USE `idraPonferrada`;SELECT @pss:='password';
+
+	Usuarios
+		ID_USER			
+		alias
+		apellidos
+		Nombre 
+		fecha nacimiento
+		genero
+		titulo superior
+		password
+		verificacion password
+		mail
+		cuenta habilitada
+		correo verificado
+		
+			DROP TABLE IF EXISTS USUARIOS;create table IF NOT EXISTS USUARIOS (ID_USER int not null primary key auto_increment, ALIAS varchar(20), SURNAME varchar(29), NAME varchar(20), BIRTH date, SEX varchar(1), DEGREES varchar(50), PASSWORD varchar(40),MAIL varchar(50),ENABLE boolean, MAIL_VERIFY boolean);
+			INSERT INTO USUARIOS (ALIAS, SURNAME, NAME, BIRTH, SEX, DEGREES, PASSWORD, MAIL, ENABLE, MAIL_VERIFY) VALUES ('alias1', 'Apellidos', 'nombre','1950-10-01', 'H','Tecnico',AES_ENCRYPT('12345',@pss),'alias@alias.com',true,true);
+		
+	Empresas
+		id_emp
+		cif
+		nombre
+		sector
+		direccion
+		localidad
+		provincia
+		pais
+		codigo postal
+		sede
+		
+		web
+
+			DROP TABLE IF EXISTS EMPRESAS; create table IF NOT EXISTS EMPRESAS (id_emp int not null primary key auto_increment,CIF varchar(9),NOMBRE varchar(29), SECTOR varchar(20), DIRECCION varchar(50), LOCALIDAD varchar(40), PROVINCIA varchar(20), PAIS varchar(20), COD_POSTAL varchar(30), SEDE varchar(30), WEB varchar(30));
+			INSERT INTO EMPRESAS (CIF, NOMBRE, SECTOR, DIRECCION, LOCALIDAD, PROVINCIA, PAIS, COD_POSTAL, SEDE, WEB) VALUES ('00000001N', 'NombreEmpresa1', 'Informatica','Arturo Soria', 'Madrid','Madrid','España',24025,'Madrid','asdf.com');
+		
+	Comentarios
+		id_com
+		id_usr
+		id_emp
+		departamento
+		proyecto
+		fecha comentario
+		valoraciones CORRECTA otros usuarios	CORROBORO
+		valoraciones INCORRECTA otros usuarios	NO CORROBORA
+		fecha inicio en proyecto
+		fecha finalizacion en proyecto
+		comentario
+		valoración
+
+			DROP TABLE IF EXISTS COMENTARIOS; create table IF NOT EXISTS COMENTARIOS (id_com int not null primary key auto_increment,ID_USER int NOT NULL,id_emp int NOT NULL, DEPARTAMENTO varchar (20), PROYECTO varchar(20), FECHA_COM date not null, FECHA_INI_PRO date not null, FECHA_FIN_PROYECTO date, COMENTARIO varchar(200), VALORACION INT (2), FOREIGN KEY (ID_USER) REFERENCES USUARIOS(ID_USER) ON DELETE CASCADE, FOREIGN KEY (id_emp) REFERENCES EMPRESAS(id_emp) ON DELETE CASCADE);
+			INSERT INTO COMENTARIOS (ID_USER,id_emp, DEPARTAMENTO, PROYECTO, FECHA_COM, FECHA_INI_PRO, FECHA_FIN_PROYECTO, COMENTARIO, VALORACION) VALUES (1, 1, 'Informatica','TELCO','2016-07-25', '2016-05-25','2016-12-25','hdp',0);
+			
+			 
+			
+Privilegios BBDD
+	
+	GRANT ALL PRIVILEGES ON *.* TO root@'%' IDENTIFIED BY 'suso1747' WITH GRANT OPTION;
+		[[[[[ GRANT ALL PRIVILEGES ON *.* TO '%'@'ipRedLocal ej:192.168.0.%' IDENTIFIED BY 'password' WITH GRANT OPTION;]]]]
+		
+	create user 'jesus'@'%';	
+	GRANT ALL ON idraPonferrada.* TO 'jesus'@'%';  --> todos los privilegios a jesus desde cualquier host 

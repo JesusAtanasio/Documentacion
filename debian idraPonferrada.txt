@@ -1,0 +1,93 @@
+Debian 9 jessie
+
+su  -> superusuario
+S_ _ _ 1 _ _ _ _
+
+ip fija:
+nano /etc/network/interfaces
+
+	# The loopback network interface
+	auto lo
+	iface lo inet loopback
+
+	# Static IP address
+	allow-hotplug eth0
+    iface eth0 inet static
+        address 192.168.0.12
+        netmask 255.255.255.0
+		network 192.168.0.0
+        broadcast 192.168.0.255
+        gateway 192.168.0.1
+		
+nano /etc/resolv.conf
+	domain localdomain
+	search localdomain
+	nameserver 8.8.8.8
+		
+	*reiniciar	
+		
+instalar ssh para conexión remota por putty:
+apt-get update
+apt-get install openssh-server
+
+instalar vnc debian 8 para conexión remota a escritorio
+https://www.hiroom2.com/2016/05/24/debian-8-remote-connect-to-gnome3-desktop-with-vnc-xrdp/
+
+
+MAriadb
+	mysql -u root -p
+	password -> s _ _ _ 1 _ _ _
+
+	CREATE USER 'USER_NAME' IDENTIFIED BY 'PASSWORD';
+	$ mysql -u 'jesus' -p 
+	SHOW DATABASES; 
+
+	Acceso Remoto a MySQL desde cualquier IP
+
+	1. Modificar el fichero /etc/mysql/my.cnf
+
+En el apartado [mysqld] comentamos las entrdas skip-external-locking y bind-address tal como sigue:
+my.conf
+	[mysqld]
+	#
+	# * Basic Settings
+	#
+	user            = mysql
+	pid-file        = /var/run/mysqld/mysqld.pid
+	socket          = /var/run/mysqld/mysqld.sock
+	port            = 3306
+	basedir         = /usr
+	datadir         = /var/lib/mysql
+	tmpdir          = /tmp
+	lc-messages-dir = /usr/share/mysql
+	########skip-external-locking
+	#
+	# Instead of skip-networking the default is now to listen only on
+	# localhost which is more compatible and is not less secure.
+	#######bind-address           = 127.0.0.1
+
+2. Dar permisos al usuario de BD
+
+	Para el acceso desde cualquier host y a cualquier BDD. En este caso vamos a conceder el acceso al usuario haciendoti, para ello nos conectamos a la BD en local con root:
+	haciendoti@haciendoti:~$ sudo mysql -u root -ppasswd
+
+		
+	haciendoti@haciendoti:~$ sudo mysql -u root -ppasswd
+
+	Y ejecutamos el siguiente comando
+	mysql > GRANT ALL ON *.* TO haciendoti@'%' IDENTIFIED BY 'passwd';
+
+		
+	mysql > GRANT ALL ON *.* TO haciendoti@'%' IDENTIFIED BY 'passwd';
+
+
+
+PASSWORD MARIADB por CONSOLA 1_ _ _
+		 por heidi s_ _ _ 1 _ _ _ 
+
+
+
+	Ver usuarios -> select user from mysql.user;
+	Crear usuario -> en bbdd idra.txt
+
+

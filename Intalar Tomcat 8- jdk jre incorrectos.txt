@@ -1,0 +1,81 @@
+1 – Instalar Java 8
+
+Antes de instalar Tomcat asegúrate de tener la última versión de Java Development Kit (JDK) instalado y configurado en el sistema.
+
+Agregamos el repositorio
+
+$ sudo add-apt-repository ppa:webupd8team/java
+
+Actualizamos lista de paquetes
+
+$ sudo apt-get update
+
+Instalamos el JDK
+
+$ sudo apt-get install oracle-java8-installer
+
+2 – Descargar e instalar Apache Tomcat 8
+
+La descarga se realiza desde:
+
+http://tomcat.apache.org/download-80.cgi
+
+Creamos el directorio tomcat y nos movemos a al directorio recién creado
+
+# mkdir /opt/tomcat/ && cd /opt/tomcat
+
+Descargamos tomcat
+
+# wget http://www.eu.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.zip
+
+Descargamos la suma de verificación md5
+
+# wget http://www.eu.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.zip.md5
+
+Nota: Solo reemplaza “8.0.30” por la versión actual.
+
+Hacemos la suma de verificación
+
+# cat apache-tomcat-8.0.30.zip.md5
+
+# md5sum apache-tomcat-8.0.30.zip
+
+Nota: Deben coincidir las series Alfanuméricas
+
+Extraemos el zip
+
+# unzip apache-tomcat-8.0.30.zip
+
+Nos movemos a la carpeta bin del directorio recién extraído
+
+# cd apache-tomcat-8.0.30/bin/
+
+Cambiamos los permisos de todos los .sh para que sólo sean ejecutables por el usuario root
+
+# chmod 700 /opt/tomcat/apache-tomcat-8.0.30/bin/*.sh
+
+Creamos un enlace simbólico de startup.sh (es para iniciar tomcat desde la terminal) en el directorio /usr/bin/
+
+# ln -s /opt/tomcat/apache-tomcat-8.0.30/bin/startup.sh /usr/bin/tomcatup
+
+Creamos un enlace simbólico de shutdown.sh (es para apagar tomcat desde la terminal) en el directorio /usr/bin/
+
+# ln -s /opt/tomcat/apache-tomcat-8.0.30/bin/shutdown.sh /usr/bin/tomcatdown
+
+Ahora ya podemos ejecutar desde la terminal (como super usuario) tomcatup y tomcatdown
+
+Iniciamos Tomcat
+
+# tomcatup
+
+Vemos si funciona, desde el navegador:
+
+localhost:8080
+
+Apagamos Tomcat
+
+tomcatdown
+
+# Cambiar usuario y contraseña
+/opt/tomcat/apache-tomcat-8.0.46/conf# nano tomcat-users.xml
+
