@@ -16,10 +16,15 @@ BBDD idraPonferrada
 		mail
 		cuenta habilitada
 		correo verificado
+		AUD_USER
+		AUD_TIME
 		
-			DROP TABLE IF EXISTS USUARIOS;create table IF NOT EXISTS USUARIOS (ID_USER int not null primary key auto_increment, ALIAS varchar(20), SURNAME varchar(29), NAME varchar(20), BIRTH date, SEX varchar(1), DEGREES varchar(50), PASSWORD varchar(40),MAIL varchar(50),ENABLE boolean, MAIL_VERIFY boolean);
-			INSERT INTO USUARIOS (ALIAS, SURNAME, NAME, BIRTH, SEX, DEGREES, PASSWORD, MAIL, ENABLE, MAIL_VERIFY) VALUES ('alias1', 'Apellidos', 'nombre','1950-10-01', 'H','Tecnico',AES_ENCRYPT('12345',@pss),'alias@alias.com',true,true);
+			DROP TABLE IF EXISTS USUARIOS;create table IF NOT EXISTS USUARIOS (ID_USER int not null primary key auto_increment, ALIAS varchar(20), SURNAME varchar(29), NAME varchar(20), BIRTH date, SEX varchar(1), DEGREES varchar(50), PASSWORD varchar(40),MAIL varchar(50),ENABLE boolean, MAIL_VERIFY boolean, `AUD_USER` varchar(7)  NOT NULL, `AUD_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+
+			INSERT INTO USUARIOS (ALIAS, SURNAME, NAME, BIRTH, SEX, DEGREES, PASSWORD, MAIL, ENABLE, MAIL_VERIFY, AUD_USER, AUD_TIME) VALUES ('alias1', 'Apellidos', 'nombre','1950-10-01', 'H','Tecnico',AES_ENCRYPT('12345',@pss),'alias@alias.com',true, true, Prueb', '2017-12-17 16:17:25');
 		
+
+
 	Empresas
 		id_emp
 		cif
